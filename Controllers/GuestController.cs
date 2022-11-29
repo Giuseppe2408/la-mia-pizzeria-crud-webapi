@@ -1,4 +1,5 @@
 ﻿using la_mia_pizzeria_static.Models;
+using la_mia_pizzeria_static.Models.Form;
 using la_mia_pizzeria_static.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +22,8 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Index()
         {
-
-            return View();
+            List<Category> categories = categoryRepository.All();
+            return View(categories);
         }
 
         public IActionResult Show(int id)

@@ -11,14 +11,14 @@ namespace la_mia_pizzeria_static.Controllers.Api
     {
         IPizzaRepository pizzaRepository;
 
-        ICategoryRepository categoryRepository;
+        
 
         IIngredientRepository ingredientRepository;
 
-        public PizzaController(IPizzaRepository _pizzaRepository, ICategoryRepository _categoryRepository, IIngredientRepository _ingredientRepository)
+        public PizzaController(IPizzaRepository _pizzaRepository, IIngredientRepository _ingredientRepository)
         {
             pizzaRepository = _pizzaRepository;
-            categoryRepository = _categoryRepository;
+            
             ingredientRepository = _ingredientRepository;
         }
 

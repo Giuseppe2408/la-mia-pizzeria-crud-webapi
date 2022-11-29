@@ -16,6 +16,8 @@ namespace la_mia_pizzeria_static.Models.Repository
         public List<Category> All()
         {
             return db.Categories.ToList();
+
+            
         }
 
         public Category GetById(int id)

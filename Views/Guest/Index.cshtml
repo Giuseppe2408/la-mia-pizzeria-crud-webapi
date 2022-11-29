@@ -1,14 +1,25 @@
-﻿@{
+﻿@using la_mia_pizzeria_static.Models.Form
+@{
     Layout = "_GuestLayout";
 }
 
 
+  <h1>Cerca la pizza</h1>
 <div class="input-group mb-3">
+
   <input type="text" class="form-control userSearch mb-5" placeholder="Cerca Pizza">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button">Search</button>
   </div>
 </div>
+
+<h1>Scegli la categoria</h1>
+<select class="form-select js_select mb-5" onchange="CategoryFilter()">
+
+    
+    @*qui verranno inserite le categorie*@
+
+</select>
 
 
 <div class="row js_no_pizza text-center d-none">
@@ -58,10 +69,9 @@
 
         
         
-
     }
 
-    //chiamata axios per tutto
+    //chiamata axios per tutte le pizze
     axios.get('/Api/Pizza/Get').then(res => {
                    
         PrintCard(res.data);
@@ -70,13 +80,40 @@
           console.log(error);
     });
 
-
-
+    //chiamata axios per le categories
+    axios.get('/Api/Category/Get').then(res => {
+        PrintCategory(res.data);
+    }).catch(error => {
+        console.log(error);
+    });
     
+    function CategoryFilter() {
 
+        let id = document.querySelector('.js_select').value;
+        console.log(id)
 
+        axios.get('/Api/Category/GetById', {
+                params : {
+                    id: id
+                }
+                })
+            .then(res => {
+                console.log(res.data)
+                PrintCardCategory(res.data);
+            })
+    }
 
-    
+    function PrintCategory(data) {
+        
+        data.forEach(category => {
+                document.querySelector('.js_select').innerHTML += 
+            `
+                <option value="${category.id}">${category.title}</option>
+            `
+        })
+    }
+
+    //funzioni di stampa e creazione template html
     function PrintCard(result) {
         if (result.length == 0) {
             document.querySelector('js_no_pizza').classList.remove('d-none');
@@ -88,12 +125,7 @@
             document.querySelector('.js_pizza_table').innerHTML = '';
             result.forEach(pizza =>{
 
-                let listaingredienti = '';
-
-                pizza.ingredients.forEach(ingredient => {
-                    listaingredienti +=   
-                    `<li>${ingredient.title}</li>`
-                })
+               
 
                 document.querySelector('.js_pizza_table').innerHTML +=
                 `
@@ -105,7 +137,7 @@
                             <p class="card-text">${pizza.description}</p>
                             <span class="card-text">${pizza.price}</span>
                             <span class="card-text">${pizza.category.title}</span>     
-                            <ul class="list-ingredient">${listaingredienti}</ul>
+                            
                             <a
                                 href="Guest/Show/${pizza.id}"
 
@@ -119,5 +151,49 @@
         }
     }
 
+         function PrintCardCategory(result) {
+            if (result.length == 0) {
+                document.querySelector('js_no_pizza').classList.remove('d-none');
+                document.querySelector('.js_pizza_table').classList.add('d-none');
+            } 
+            else 
+            {
+
+                document.querySelector('.js_pizza_table').innerHTML = '';
+                    
+                    const category = result
+                    let listaPizze = '';
+
+                    category.pizzas.forEach(pizza => {
+                        listaPizze +=   
+                        `
+                        <div class="col-12 col-md-4 p-2">
+                            <div class="card pizza h-100">
+                                <img src="${pizza.image}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">${pizza.nome}</h5>
+                                    <p class="card-text">${pizza.description}</p>
+                                    <span class="card-text">${pizza.price}</span>
+                                        <span class="card-text">${category.title}</span>     
+                                        
+                                    <a
+                                        href="Guest/Show/${pizza.id}"
+
+                                        class="btn btn-primary">Visualizza pizza
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    })
+
+                    document.querySelector('.js_pizza_table').innerHTML += listaPizze;
+                   
+                
+            }
+        }
+
+
+           
 </script>
 }
