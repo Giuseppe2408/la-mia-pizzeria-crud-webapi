@@ -4,7 +4,7 @@
 
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control userSearch mb-5" placeholder="Cerca Pizza" aria-label="Search">
+  <input type="text" class="form-control userSearch mb-5" placeholder="Cerca Pizza">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button">Search</button>
   </div>
@@ -34,6 +34,34 @@
 
 @section Scripts{
 <script>
+
+
+    document.querySelector('.userSearch').addEventListener('keyup', UserSearch);
+
+    
+
+    function UserSearch(e) {
+
+        let query = e.target.value
+        console.log(query)
+
+
+        //chiamata axios per la search
+        axios.get('/Api/Pizza/SearchTitle', {
+            params : {
+                title: query
+            }
+            })
+        .then(res => {
+            PrintCard(res.data);
+        })
+
+        
+        
+
+    }
+
+    //chiamata axios per tutto
     axios.get('/Api/Pizza/Get').then(res => {
                    
         PrintCard(res.data);
@@ -41,6 +69,12 @@
     }).catch(error => {
           console.log(error);
     });
+
+
+
+    
+
+
 
     
     function PrintCard(result) {
