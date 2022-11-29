@@ -16,7 +16,6 @@
 <h1>Scegli la categoria</h1>
 <select class="form-select js_select mb-5" onchange="CategoryFilter()">
 
-    
     @*qui verranno inserite le categorie*@
 
 </select>
@@ -72,6 +71,7 @@
     }
 
     //chiamata axios per tutte le pizze
+    function ListPizza() {
     axios.get('/Api/Pizza/Get').then(res => {
                    
         PrintCard(res.data);
@@ -79,7 +79,8 @@
     }).catch(error => {
           console.log(error);
     });
-
+    }
+    ListPizza();
     //chiamata axios per le categories
     axios.get('/Api/Category/Get').then(res => {
         PrintCategory(res.data);
@@ -92,20 +93,28 @@
         let id = document.querySelector('.js_select').value;
         console.log(id)
 
-        axios.get('/Api/Category/GetById', {
+        if (id == 0) 
+        {
+            ListPizza();
+        }
+        else 
+        {
+            axios.get('/Api/Category/GetById', {
                 params : {
                     id: id
                 }
                 })
             .then(res => {
                 console.log(res.data)
-                PrintCardCategory(res.data);
+                PrintCardCategory(res.data, id);
             })
+        }
+        
     }
 
     function PrintCategory(data) {
-        
-        data.forEach(category => {
+                document.querySelector('.js_select').innerHTML += `<option value="0">Tutte le pizze</option>`
+            data.forEach(category => {
                 document.querySelector('.js_select').innerHTML += 
             `
                 <option value="${category.id}">${category.title}</option>
@@ -152,16 +161,14 @@
     }
 
          function PrintCardCategory(result) {
-            if (result.length == 0) {
-                document.querySelector('js_no_pizza').classList.remove('d-none');
-                document.querySelector('.js_pizza_table').classList.add('d-none');
-            } 
-            else 
-            {
+
+            const category = result
+
+            
 
                 document.querySelector('.js_pizza_table').innerHTML = '';
                     
-                    const category = result
+                   
                     let listaPizze = '';
 
                     category.pizzas.forEach(pizza => {
@@ -190,7 +197,7 @@
                     document.querySelector('.js_pizza_table').innerHTML += listaPizze;
                    
                 
-            }
+            
         }
 
 

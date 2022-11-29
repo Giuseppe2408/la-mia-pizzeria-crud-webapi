@@ -24,7 +24,10 @@ namespace la_mia_pizzeria_static.Models.Repository
         {
             return db.Categories.Where(cat => cat.Id == id).FirstOrDefault();
 
+
         }
+
+       
 
         public void Create(Category category)
         {
