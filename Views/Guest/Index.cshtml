@@ -3,15 +3,20 @@
 }
 
 
+<div class="input-group mb-3">
+  <input type="text" class="form-control userSearch mb-5" placeholder="Cerca Pizza" aria-label="Search">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Search</button>
+  </div>
+</div>
 
 
-
-<div class="row js_no_post text-center d-none">
+<div class="row js_no_pizza text-center d-none">
     <div class="col-12">
-        <h3>Non hai inserito alcun post</h3>
+        <h3>Non hai inserito alcun pizza</h3>
     </div>
 </div>
-<div class="row js_post_table">
+<div class="row js_pizza_table">
     <!-- qui verranno mostrati gli elementi -->
     
 </div>
@@ -27,56 +32,58 @@
 
 
 
-
- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
-
+@section Scripts{
 <script>
     axios.get('/Api/Pizza/Get').then(res => {
-        if (res.data.length == 0) {
-            document.querySelector('js_no_post').classList.remove('d-none');
-            document.querySelector('.js_post_table').classList.add('d-none');
+                   
+        PrintCard(res.data);
+                             
+    }).catch(error => {
+          console.log(error);
+    });
+
+    
+    function PrintCard(result) {
+        if (result.length == 0) {
+            document.querySelector('js_no_pizza').classList.remove('d-none');
+            document.querySelector('.js_pizza_table').classList.add('d-none');
         } 
         else 
         {
-             document.querySelector('.js_post_table').innerHTML = '';
-             console.log(res.data)
-             res.data.forEach(pizza =>{
+       
+            document.querySelector('.js_pizza_table').innerHTML = '';
+            result.forEach(pizza =>{
 
-                    let listaingredienti = '';
-                    
-                    pizza.ingredients.forEach(ingredient => {
-                        listaingredienti +=   
-                        `<li>${ingredient.title}</li>`
-                    })
-                   
-                    document.querySelector('.js_post_table').innerHTML +=
-                        `
-                        <div class="col-12 col-md-4 p-2">
-                            <div class="card post h-100">
-                                <img src="${pizza.image}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">${pizza.nome}</h5>
-                                    <p class="card-text">${pizza.description}</p>
-                                    <span class="card-text">${pizza.price}</span>
-                                    <span class="card-text">${pizza.category.title}</span>     
-                                    <ul class="list-ingredient">${listaingredienti}</ul>
-                                    <a
-                                        href="Guest/Show/${pizza.id}"
+                let listaingredienti = '';
 
-                                        class="btn btn-primary">Visualizza pizza
-                                    </a>
-                                </div>
-                            </div>
+                pizza.ingredients.forEach(ingredient => {
+                    listaingredienti +=   
+                    `<li>${ingredient.title}</li>`
+                })
+
+                document.querySelector('.js_pizza_table').innerHTML +=
+                `
+                <div class="col-12 col-md-4 p-2">
+                    <div class="card pizza h-100">
+                        <img src="${pizza.image}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${pizza.nome}</h5>
+                            <p class="card-text">${pizza.description}</p>
+                            <span class="card-text">${pizza.price}</span>
+                            <span class="card-text">${pizza.category.title}</span>     
+                            <ul class="list-ingredient">${listaingredienti}</ul>
+                            <a
+                                href="Guest/Show/${pizza.id}"
+
+                                class="btn btn-primary">Visualizza pizza
+                            </a>
                         </div>
-                        `
-                      
-             })  
-                      
-             
-             
+                    </div>
+                </div>
+                `
+            })
         }
-    }).catch(error => {
-                console.log(error);
-            });
+    }
 
 </script>
+}
