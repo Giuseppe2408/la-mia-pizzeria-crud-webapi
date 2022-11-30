@@ -2,7 +2,7 @@
 
 namespace la_mia_pizzeria_static.Models.Repository
 {
-    public class DbMessageRepository 
+    public class DbMessageRepository : IDbMessageRepository
     {
         PizzaDbContext db;
 

@@ -7,6 +7,7 @@ builder.Services.AddDbContext<PizzaDbContext>();
 builder.Services.AddScoped<IPizzaRepository, DbPizzaRepository>();
 builder.Services.AddScoped<ICategoryRepository, DbCategoryRepository>();
 builder.Services.AddScoped<IIngredientRepository, DbIngredientRepository>();
+builder.Services.AddScoped<IDbMessageRepository, DbMessageRepository>();
 
 
 

@@ -10,18 +10,22 @@
             <div class="mb-3">
                 <label for="contact-email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="contact-email">
+                <span id="validation-mail"></span>
             </div>
             <div class="mb-3">
                 <label for="contact-name" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="contact-name" >
+                <span id="validation-name"></span>
             </div>
             <div class="mb-3">
                 <label for="contact-title" class="form-label">Titolo</label>
                 <input type="text" class="form-control" id="contact-title" >
+                <span id="validation-title"></span>
             </div>
             <div class="mb-3">
                 <label for="contact-text" class="form-label">Testo</label>
                 <textarea class="form-control" id="contact-text" rows="10" ></textarea>
+                <span id="validation-text"></span>
             </div>
             <input type="submit" class="btn btn-primary" value="Invia" />
         </form>
@@ -38,26 +42,34 @@
         function SendMessage(e) 
         {
             e.preventDefault();
-            const emailVal = document.getElementById('contact-email').value
-            const nameVal = document.getElementById('contact-name').value
-            const titleVal = document.getElementById('contact-title').value
-            const textVal = document.getElementById('contact-text').value
-            console.log(emailVal, nameVal,titleVal, textVal)
+            //valori degli input
+            const emailValue = document.getElementById('contact-email').value
+            const nameValue = document.getElementById('contact-name').value
+            const titleValue = document.getElementById('contact-title').value
+            const textValue = document.getElementById('contact-text').value
+            //span per stampare l'error message
+            const emailValidation = document.getElementById('validation-mail')
+            const nameValidation = document.getElementById('validation-name')
+            const titleValidation = document.getElementById('validation-title')
+            const textValidation = document.getElementById('validation-text')
+           
 
             axios.post('/api/message',{
-                email: emailVal,
-                name: nameVal,
-                title: titleVal,
-                text: textVal,
+                email: emailValue,
+                name: nameValue,
+                title: titleValue,
+                text: textValue,
             }).then(res => {
-                console.log(res)
-                    //document.querySelector('#contact-email').value = '';
-                    //document.querySelector('#contact-name').value = '';
-                    document.querySelector('#contact-title').value = '';
-                    document.querySelector('#contact-text').value = '';
+                
+                swal("Messaggio ricevuto!", "riceverai a breve una risposta via email", "success");
+                
+                titleValue = '';
+                textValue = '';
             }).catch(error =>{
                 
-                console.log(error.response.data.errors);
+                const error = error.response.data.errors;
+
+                emailValidation =
             })
         }
 

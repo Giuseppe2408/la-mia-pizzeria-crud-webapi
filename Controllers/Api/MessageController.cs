@@ -11,13 +11,24 @@ namespace la_mia_pizzeria_static.Controllers.Api
     public class MessageController : ControllerBase
     {
 
-        DbMessageRepository messageRepository;
+        IDbMessageRepository messageRepository;
         
-       
+
+
+       public MessageController(IDbMessageRepository _messageRepository)
+        {
+            messageRepository = _messageRepository;
+        }
 
         [HttpPost]
         public IActionResult Create([FromBody] Message message)
         {
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return Ok("non valido");
+            //}
+
             try
             {
                 messageRepository.Create(message);
