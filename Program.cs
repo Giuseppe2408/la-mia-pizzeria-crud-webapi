@@ -9,6 +9,7 @@ builder.Services.AddScoped<ICategoryRepository, DbCategoryRepository>();
 builder.Services.AddScoped<IIngredientRepository, DbIngredientRepository>();
 
 
+
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

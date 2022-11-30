@@ -31,5 +31,11 @@ namespace la_mia_pizzeria_static.Controllers
             Pizza pizza = pizzaRepository.GetById(id);
             return View(pizza);
         }
+
+        public IActionResult Contact()
+        {          
+            return View();
+        }
+
     }
 }
