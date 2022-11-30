@@ -26,9 +26,9 @@ namespace la_mia_pizzeria_static.Controllers.Api
             return Ok(categoryList);
         }
 
-        public IActionResult GetById(int id)
+        public IActionResult SearchById(int id)
         {
-            Category category = categoryRepository.GetById(id);
+            Category category = categoryRepository.SearchById(id);
 
 
             return Ok(category);

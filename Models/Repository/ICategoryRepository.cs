@@ -7,6 +7,8 @@
         void Delete(Category category);
         Category GetByIdWithPizza(int id);
         Category GetById(int id);
+
+        Category SearchById(int id);
    
         void Update(Category category, Category formData);
     }

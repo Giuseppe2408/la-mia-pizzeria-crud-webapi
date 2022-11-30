@@ -46,5 +46,10 @@ namespace la_mia_pizzeria_static.Models.Repository
 
             Categories.Add(category);
         }
+
+        public Category SearchById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

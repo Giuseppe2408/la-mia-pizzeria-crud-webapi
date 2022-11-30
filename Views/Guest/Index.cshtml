@@ -99,14 +99,14 @@
         }
         else 
         {
-            axios.get('/Api/Category/GetById', {
+            axios.get('/Api/Category/SearchById', {
                 params : {
                     id: id
                 }
                 })
             .then(res => {
                 console.log(res.data)
-                PrintCardCategory(res.data, id);
+                PrintCardCategory(res.data);
             })
         }
         
@@ -164,7 +164,7 @@
 
             const category = result
 
-            
+            console.log(category)
 
                 document.querySelector('.js_pizza_table').innerHTML = '';
                     

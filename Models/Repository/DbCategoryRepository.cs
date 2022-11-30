@@ -8,9 +8,9 @@ namespace la_mia_pizzeria_static.Models.Repository
 
         private PizzaDbContext db;
 
-        public DbCategoryRepository()
+        public DbCategoryRepository(PizzaDbContext _db)
         {
-            db = PizzaDbContext.Instance;
+            db = _db;
         }
 
         public List<Category> All()
@@ -24,10 +24,14 @@ namespace la_mia_pizzeria_static.Models.Repository
         {
             return db.Categories.Where(cat => cat.Id == id).FirstOrDefault();
 
-
+            
         }
 
-       
+        public Category SearchById(int id)
+        {
+            return db.Categories.Where(cat => cat.Id == id).Include(c => c.Pizzas).FirstOrDefault();
+        }
+
 
         public void Create(Category category)
         {
@@ -52,5 +56,7 @@ namespace la_mia_pizzeria_static.Models.Repository
             db.SaveChanges();
 
         }
+
+        
     }
 }
