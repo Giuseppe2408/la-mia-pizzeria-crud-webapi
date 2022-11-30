@@ -47,11 +47,7 @@
             const nameValue = document.getElementById('contact-name').value
             const titleValue = document.getElementById('contact-title').value
             const textValue = document.getElementById('contact-text').value
-            //span per stampare l'error message
-            const emailValidation = document.getElementById('validation-mail')
-            const nameValidation = document.getElementById('validation-name')
-            const titleValidation = document.getElementById('validation-title')
-            const textValidation = document.getElementById('validation-text')
+            
            
 
             axios.post('/api/message',{
@@ -63,13 +59,17 @@
                 
                 swal("Messaggio ricevuto!", "riceverai a breve una risposta via email", "success");
                 
-                titleValue = '';
-                textValue = '';
+                document.getElementById('contact-email').value = '';
+                document.getElementById('contact-name').value = '';
+                document.getElementById('contact-title').value = '';
+                document.getElementById('contact-text').value = '';
+                //textValue = '';
+                     
             }).catch(error =>{
                 
-                const error = error.response.data.errors;
+                console.log(error.response.data.errors);
 
-                emailValidation =
+                
             })
         }
 

@@ -24,10 +24,6 @@ namespace la_mia_pizzeria_static.Controllers.Api
         public IActionResult Create([FromBody] Message message)
         {
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return Ok("non valido");
-            //}
 
             try
             {
