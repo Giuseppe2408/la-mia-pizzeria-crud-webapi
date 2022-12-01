@@ -32,6 +32,9 @@ namespace la_mia_pizzeria_static.Models
         //relazione molti a molti con gli ingredienti
         public List<Ingredient>? Ingredients { get; set; }
 
+        //relazione molti a molti con le review
+        public List<Review>? Reviews { get; set; }
+
         public Pizza()
         {
         }

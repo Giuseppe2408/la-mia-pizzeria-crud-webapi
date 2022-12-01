@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using la_mia_pizzeria_static.Data;
 
@@ -11,9 +12,11 @@ using la_mia_pizzeria_static.Data;
 namespace lamiapizzeriastatic.Migrations
 {
     [DbContext(typeof(PizzeriaDbContext))]
-    partial class PizzaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221201142302_AddReview")]
+    partial class AddReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,21 +242,6 @@ namespace lamiapizzeriastatic.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PizzaReview", b =>
-                {
-                    b.Property<int>("PizzasId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReviewsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PizzasId", "ReviewsId");
-
-                    b.HasIndex("ReviewsId");
-
-                    b.ToTable("PizzaReview");
-                });
-
             modelBuilder.Entity("la_mia_pizzeria_static.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -430,21 +418,6 @@ namespace lamiapizzeriastatic.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PizzaReview", b =>
-                {
-                    b.HasOne("la_mia_pizzeria_static.Models.Pizza", null)
-                        .WithMany()
-                        .HasForeignKey("PizzasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("la_mia_pizzeria_static.Models.Review", null)
-                        .WithMany()
-                        .HasForeignKey("ReviewsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

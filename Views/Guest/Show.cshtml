@@ -16,7 +16,20 @@
 
 </div>
 
+<div class="col-12 mt-5">
+    <form onsubmit="CreateComment(event)">
+        <div class="mb-3">
+            <label for="contact-text" class="form-label">Testo commento</label>
+            <textarea class="form-control" id="review-text" rows="10" ></textarea>
+                
+        </div>
+        <input type="submit" class="btn btn-primary" value="Invia" />
+    </form>
+</div>
 
+<ul id="comment-list">
+    @*qui vanno i commenti*@
+</ul>
 
 
 
@@ -59,6 +72,40 @@
                  </div>
             `
         }
+
+
+        //stampo i commenti 
+        axios.get('/api/review').then(res => {
+            document.getElementById('comment-list').innerHTML = '';
+            res.data.forEach(comment => {
+                document.getElementById('comment-list').innerHTML +=
+                `
+                    <li>${$comment.text}</li>
+                `
+            })
+            
+        })
+
+
+
+        function CreateComment(e) 
+        {
+            e.preventDefault();
+
+            axios.post('/api/review', {
+                text: document.getElementById('review-text').value,
+            }).then(result => {
+
+                
+
+
+                
+            }).catch(error => {
+                console.log(error);
+            })
+
+        }
+        
 
         
     </script>

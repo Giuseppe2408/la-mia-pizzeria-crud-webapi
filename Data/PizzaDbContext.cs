@@ -18,6 +18,8 @@ namespace la_mia_pizzeria_static.Data
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<Review> Reviews { get; set; }
+
         public PizzeriaDbContext(DbContextOptions<PizzeriaDbContext> options)
         : base(options)
         {
