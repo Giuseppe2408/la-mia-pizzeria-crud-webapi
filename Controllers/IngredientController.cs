@@ -2,11 +2,13 @@
 using la_mia_pizzeria_static.Models;
 using la_mia_pizzeria_static.Models.Form;
 using la_mia_pizzeria_static.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Authorize]
     public class IngredientController : Controller
     {
 

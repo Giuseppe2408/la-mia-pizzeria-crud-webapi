@@ -9,9 +9,9 @@ namespace la_mia_pizzeria_static.Models.Repository
 {
     public class DbPizzaRepository : IPizzaRepository
     {
-        private PizzaDbContext db;
+        private PizzeriaDbContext db;
 
-        public DbPizzaRepository(PizzaDbContext _db)
+        public DbPizzaRepository(PizzeriaDbContext _db)
         {
             db = _db;
         }

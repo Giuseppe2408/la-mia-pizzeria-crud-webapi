@@ -6,9 +6,9 @@ namespace la_mia_pizzeria_static.Models.Repository
     public class DbCategoryRepository : ICategoryRepository
     {
 
-        private PizzaDbContext db;
+        private PizzeriaDbContext db;
 
-        public DbCategoryRepository(PizzaDbContext _db)
+        public DbCategoryRepository(PizzeriaDbContext _db)
         {
             db = _db;
         }

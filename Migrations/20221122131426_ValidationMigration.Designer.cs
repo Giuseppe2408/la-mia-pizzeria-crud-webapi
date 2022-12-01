@@ -10,7 +10,7 @@ using la_mia_pizzeria_static.Data;
 
 namespace lamiapizzeriastatic.Migrations
 {
-    [DbContext(typeof(PizzaDbContext))]
+    [DbContext(typeof(PizzeriaDbContext))]
     [Migration("20221122131426_ValidationMigration")]
     partial class ValidationMigration
     {

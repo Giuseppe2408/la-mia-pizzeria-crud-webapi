@@ -4,9 +4,9 @@ namespace la_mia_pizzeria_static.Models.Repository
 {
     public class DbMessageRepository : IDbMessageRepository
     {
-        PizzaDbContext db;
+        PizzeriaDbContext db;
 
-        public DbMessageRepository(PizzaDbContext _db)
+        public DbMessageRepository(PizzeriaDbContext _db)
         {
             db = _db;
         }
